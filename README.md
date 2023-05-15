@@ -1,3 +1,16 @@
+## TODO
+##### Racing Game
+- [ ] Finish styling for racing game
+- [ ] Dynamic styling (highlight, finish, ctrl+bkspc)
+- [ ] Build backend for racing game 
+
+
+##### Actual Portfolio
+- [ ] Theme
+- [ ] Projects Showcase
+- [ ] Links
+- [ ] Blog
+
 # Create T3 App
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
