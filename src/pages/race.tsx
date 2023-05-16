@@ -4,12 +4,12 @@ import { ALLOWED_KEYS } from "~/utils/constants";
 import Head from "next/head";
 import Link from "next/link";
 
-const sampleText = "It's a praying mantis. Do you know how they mate? The male will sneak up on the female and she'll bite off his head and the rest of his body will keep on mating and when they're done she'll eat him. She'll eat the rest of him."
-// const sampleText = "hello"
+const sampleText = "Dreams without goals are just dreams and, ultimately, they fuel disappointment. On the road to achieving your dreams you must apply discipline but more importantly consistency. Because without commitment, you'll never start. But without consistency, you'll never finish."
+// const sampleText = "'"
 
 const Race: NextPage = () => {
   const [typed, setTyped] = useState<Array<KeyboardEvent>>([])
-  const [outString, setOutString] = useState('')
+  const [outString, setOutString] = useState(sampleText)
   const [prompt, setPrompt] = useState(sampleText)
   // used to track where user is
   const [loc, setLoc] = useState(0)
@@ -24,6 +24,7 @@ const Race: NextPage = () => {
     }
 
     if (ALLOWED_KEYS.includes(event.key)) {
+
       setLoc((current) => current + 1)
       setOutString(prev => prev + event.key)
     }
@@ -31,22 +32,25 @@ const Race: NextPage = () => {
     // figure out a better way to check if strings are equal
   }
 
-  const onKeyUp = (event: KeyboardEvent) => {
-    setFinished((_c) => prompt.localeCompare(outString) == 0)
-  }
-
 
   useEffect(() => {
       window.addEventListener("keydown", onKeyPress)
-      window.addEventListener("keydown", onKeyUp)
   }, []);
+
+  useEffect(() => {
+    setFinished((_c) => prompt.localeCompare(outString) == 0)
+  }, [outString]);
 
   return(
     <>
-      <div>
-        <span className="underline">{sampleText.substring(0,loc)}</span>{sampleText.substring(loc)}
+      <div className="container">
+        <div className="promptBox tracking-wide">
+          <span className="underline">{sampleText.substring(0,loc)}</span>
+          <span className="border"></span>
+          {sampleText.substring(loc)}
+        </div>
       </div>
-      <div>
+      <div className="inputBox border m-5">
         {outString}
       </div>
         
