@@ -9,11 +9,13 @@ const sampleText = "Dreams without goals are just dreams and, ultimately, they f
 
 const Race: NextPage = () => {
   const [typed, setTyped] = useState<Array<KeyboardEvent>>([])
-  const [outString, setOutString] = useState(sampleText)
+  const [outString, setOutString] = useState("")
   const [prompt, setPrompt] = useState(sampleText)
   // used to track where user is
   const [loc, setLoc] = useState(0)
   const [finished, setFinished] = useState(false)
+  const [start, setStart] = useState<Date>(new Date())
+  const [wpm, setWpm] = useState(0)
 
   const onKeyPress = (event: KeyboardEvent) => {
     setTyped(prev => [...prev, event])
@@ -28,7 +30,6 @@ const Race: NextPage = () => {
       setLoc((current) => current + 1)
       setOutString(prev => prev + event.key)
     }
-
     // figure out a better way to check if strings are equal
   }
 
@@ -38,7 +39,21 @@ const Race: NextPage = () => {
   }, []);
 
   useEffect(() => {
-    setFinished((_c) => prompt.localeCompare(outString) == 0)
+    if (outString.length == 1) {
+      setStart(new Date())
+    } 
+    else {
+      const ms = (new Date()).getTime() - start.getTime()
+      const wpm = outString.length / ms * 1000
+      setWpm(wpm)
+    }
+
+    const finished = prompt.localeCompare(outString) == 0
+    setFinished(finished)
+
+    if (finished) {
+
+    }
   }, [outString]);
 
   return(
@@ -55,10 +70,11 @@ const Race: NextPage = () => {
       </div>
         
       {finished ? <>Done</> : <>Not done</>}
+      <div>{wpm}</div>
+      <button className="btn">Done</button>
       <div className="my-5">
         {typed.map((k, index) => <span key={index}>{k.key}</span>)}
       </div>
-      <button className="btn">Done</button>
     </>
   )
 }
