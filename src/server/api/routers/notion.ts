@@ -1,8 +1,8 @@
-import { z } from "zod";
+// import { z } from "zod";
 import {
   createTRPCRouter,
   publicProcedure,
-  protectedProcedure,
+  // protectedProcedure,
 } from "~/server/api/trpc";
 
 import getRandomQuote from "~/utils/notion/quote";

@@ -7,8 +7,7 @@ import getRandomQuote from "~/utils/notion/quote"
 const TypeRace: React.FC = () => {
   const [typed, setTyped] = useState<Array<KeyboardEvent>>([])
   const [outString, setOutString] = useState("")
-  // @ts-ignore
-  const { data, refetch } = api.notion.getQuote.useQuery(['quote'], {stale: true})
+  const { data, refetch } = api.notion.getQuote.useQuery()
   const quote = data
   // const [prompt, setPrompt] = useState("")
   // used to track where user is
@@ -38,8 +37,8 @@ const TypeRace: React.FC = () => {
     // figure out a better way to check if strings are equal
   }
 
-  const reset = () => {
-    refetch()
+  const reset = async () => {
+    await refetch()
     setOutString("")
     setWpm(0)
     setStart(new Date())
@@ -47,16 +46,8 @@ const TypeRace: React.FC = () => {
   }
 
   useEffect(() => {
-      (async () => {
-        // @ts-ignore
-      })()
-
       window.addEventListener("keydown", onKeyPress)
   }, []);
-
-  useEffect(() => {
-
-  }, [outString]);
 
   useEffect(() => {
     if (outString.length == 1) {

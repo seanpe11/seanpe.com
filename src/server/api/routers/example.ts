@@ -31,7 +31,7 @@ export const exampleRouter = createTRPCRouter({
     return "you can now see this secret message!";
   }),
 
-  getSomething: publicProcedure.query(({ ctx }) => {
+  getSomething: publicProcedure.query(({ }) => {
     return { something: "something" }
   })
 });
