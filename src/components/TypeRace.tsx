@@ -48,6 +48,7 @@ const TypeRace: React.FC = () => {
 
   useEffect(() => {
       (async () => {
+        // @ts-ignore
       })()
 
       window.addEventListener("keydown", onKeyPress)
@@ -87,7 +88,7 @@ const TypeRace: React.FC = () => {
       </div>
         
       {finished ? <>Done</> : <>Not done</>}
-      <div>{wpm}wpm</div>
+      <div>{wpm.toFixed(2)}wpm</div>
       <button className="rounded-full text-slate-400 hover:text-white" onClick={reset} >Reset</button>
       <div className="my-5" hidden>
         {typed.map((k, index) => <span key={index}>{k.key}</span>)}

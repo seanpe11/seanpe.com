@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-import getQuote from "~/utils/notion-quote"
+import getQuote from "~/utils/notion/quote"
 
 export default async function handle(req: NextApiResponse, res: NextApiResponse){
   try {
