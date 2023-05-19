@@ -38,7 +38,7 @@ const Home: NextPage = () => {
                 </svg>
               </Link>
             </div> </div>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 md:gap-8">
             <Link
               className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
               href="https://docs.google.com/document/d/1kS4Kngv_D16vuzcgklJRGzdMboTJEfwbrKpxoUHVgUc/export?format=pdf"
@@ -56,6 +56,15 @@ const Home: NextPage = () => {
               <h3 className="text-2xl font-bold">TypeRace →</h3>
               <div className="text-lg">
                 Check out a fun typing game I made!
+              </div>
+            </Link>
+            <Link
+              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
+              href="/blog"
+            >
+              <h3 className="text-2xl font-bold">Blog</h3>
+              <div className="text-lg">
+                View my blog!
               </div>
             </Link>
           </div>
