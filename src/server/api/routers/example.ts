@@ -6,6 +6,7 @@ import {
   protectedProcedure,
 } from "~/server/api/trpc";
 
+
 export const exampleRouter = createTRPCRouter({
   hello: publicProcedure
     .input(z.object({ text: z.string() }))
@@ -13,6 +14,13 @@ export const exampleRouter = createTRPCRouter({
       return {
         greeting: `Hello ${input.text}`,
       };
+    }),
+
+  getQuote: publicProcedure
+    .query(() => {
+      return {
+
+      }
     }),
 
   getAll: publicProcedure.query(({ ctx }) => {

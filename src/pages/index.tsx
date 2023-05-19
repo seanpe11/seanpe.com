@@ -7,6 +7,8 @@ import { api } from "~/utils/api";
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  const quote = api.notion.getQuote.useQuery();
+  console.log(quote)
 
   return (
     <>
@@ -70,10 +72,10 @@ const Home: NextPage = () => {
           </div>
           <div className="flex flex-col items-center gap-2">
             <p className="text-2xl text-white">
-              {hello.data ? hello.data.greeting : "Loading tRPC query..."}
+              {quote.data ? quote.data.quote.text : "Loading tRPC query..."}
             </p>
-            <p className="text-lg text-white">
-              - Denzel Washington
+            <p className="text-l text-white">
+              A quote from somewhere, sometime in my life. 
             </p>
           </div>
         </div>

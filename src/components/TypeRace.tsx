@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react'
 import { ALLOWED_KEYS } from "~/utils/constants";
+import { api } from "~/utils/api";
+import getRandomQuote from "~/utils/notion/quote"
 
-
-const sampleText = "Dreams without goals are just dreams and, ultimately, they fuel disappointment. On the road to achieving your dreams you must apply discipline but more importantly consistency. Because without commitment, you'll never start. But without consistency, you'll never finish."
 
 const TypeRace: React.FC = () => {
   const [typed, setTyped] = useState<Array<KeyboardEvent>>([])
   const [outString, setOutString] = useState("")
-  const [words, setWords] = useState(sampleText.split(" "))
-  const [prompt, setPrompt] = useState(sampleText)
+  // @ts-ignore
+  const { data, refetch } = api.notion.getQuote.useQuery(['quote'], {stale: true})
+  const quote = data
+  // const [prompt, setPrompt] = useState("")
   // used to track where user is
   const [loc, setLoc] = useState(0)
   const [finished, setFinished] = useState(false)
@@ -37,16 +39,23 @@ const TypeRace: React.FC = () => {
   }
 
   const reset = () => {
+    refetch()
     setOutString("")
     setWpm(0)
     setStart(new Date())
     setLoc(0)
   }
 
-
   useEffect(() => {
+      (async () => {
+      })()
+
       window.addEventListener("keydown", onKeyPress)
   }, []);
+
+  useEffect(() => {
+
+  }, [outString]);
 
   useEffect(() => {
     if (outString.length == 1) {
@@ -58,7 +67,7 @@ const TypeRace: React.FC = () => {
       setWpm(wpm)
     }
 
-    const finished = prompt.localeCompare(outString) == 0
+    const finished = false
     setFinished(finished)
 
   }, [outString]);
@@ -67,9 +76,9 @@ const TypeRace: React.FC = () => {
     <>
       <div className="container place-content-center rounded bg-white/10">
         <div className="promptBox tracking-wide w-5/6 m-5 text-justify text-white">
-          <span className="">{sampleText.substring(0,loc)}</span>
+          <span className="">{quote ? quote.quote.text.substring(0,loc) : "loading..."}</span>
           <span className="border"></span>
-          <span className="text-slate-400">{sampleText.substring(loc)}</span>
+          <span className="text-slate-400">{quote ? quote.quote.text.substring(loc) : ''}</span>
         </div>
 
         <div className="inputBox border m-5">
