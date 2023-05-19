@@ -37,8 +37,7 @@ const TypeRace: React.FC = () => {
     // figure out a better way to check if strings are equal
   }
 
-  const reset = async () => {
-    await refetch()
+  const reset = () => {
     setOutString("")
     setWpm(0)
     setStart(new Date())
@@ -77,7 +76,6 @@ const TypeRace: React.FC = () => {
           {outString}
         </div>
       </div>
-        
       {finished ? <>Done</> : <>Not done</>}
       <div>{wpm.toFixed(2)}wpm</div>
       <button className="rounded-full text-slate-400 hover:text-white" onClick={reset} >Reset</button>
