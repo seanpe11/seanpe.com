@@ -9,6 +9,7 @@ const TypeRace: React.FC = () => {
   const [outString, setOutString] = useState("")
   const { data, refetch } = api.notion.getQuote.useQuery()
   const quote = data
+
   // const [prompt, setPrompt] = useState("")
   // used to track where user is
   const [loc, setLoc] = useState(0)
@@ -65,6 +66,7 @@ const TypeRace: React.FC = () => {
 
   return(
     <>
+
       <div className="container place-content-center rounded bg-white/10">
         <div className="promptBox tracking-wide w-5/6 m-5 text-justify text-white">
           <span className="">{quote ? quote.quote.text.substring(0,loc) : "loading..."}</span>
@@ -78,7 +80,7 @@ const TypeRace: React.FC = () => {
       </div>
       {finished ? <>Done</> : <>Not done</>}
       <div>{wpm.toFixed(2)}wpm</div>
-      <button className="rounded-full text-slate-400 hover:text-white" onClick={reset} >Reset</button>
+      <button className="rounded-full text-slate-400 hover:text-white" onClick={reset}>Reset</button>
       <div className="my-5" hidden>
         {typed.map((k, index) => <span key={index}>{k.key}</span>)}
       </div>
