@@ -1,13 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 interface SumReq extends NextApiRequest {
-  cash_debit: number
-  cash_credit: number
+  body: {
+    cash_debit: number
+    cash_credit: number
+  }
 }
 
-export default async function handle(req: SumReq, res: NextApiResponse){
+export default function handle(req: SumReq, res: NextApiResponse){
   
-  let amount = req.body.cash_credit - req.body.cash_debit
+  const amount = req.body.cash_credit - req.body.cash_debit
 
   if (!(req.body.cash_credit && req.body.cash_debit)) {
     res.status(500).send({ "error": "bad request" })
