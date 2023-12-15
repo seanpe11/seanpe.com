@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 // import { signIn, signOut, useSession } from "next-auth/react";
 
+import Timer from "~/components/Timer"
 import { api } from "~/utils/api";
 
 const Home: NextPage = () => {
@@ -76,6 +77,9 @@ const Home: NextPage = () => {
               A quote from somewhere, sometime in my life. 
             </p>
           </div>
+        </div>
+        <div className="flex flex-row items-center gap-3">
+          <Timer targetDate={new Date("12/19/2023 12:50:00")} eventName="Flight to Houston"/>
         </div>
       </main>
     </>
