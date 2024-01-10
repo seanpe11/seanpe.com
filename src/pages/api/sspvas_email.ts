@@ -46,9 +46,6 @@ export default function handle(req: SSSPVAsEmailNextApiRequest, res: NextApiResp
     };
 
 
-  
-
-
     transporter.sendMail(mailOptions, function(error, info){
 
       console.log(info)
@@ -56,7 +53,7 @@ export default function handle(req: SSSPVAsEmailNextApiRequest, res: NextApiResp
       if (error) {
           return res.status(500).send(error)
       } else {
-          return res.status(200).send('ok')
+          return res.status(200).send('Your message has been sent. If you have other concerns, email support@sspvas.com')
       }
 
     })
