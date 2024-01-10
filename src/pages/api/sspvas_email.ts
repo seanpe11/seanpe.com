@@ -40,7 +40,7 @@ export default function handle(req: SSSPVAsEmailNextApiRequest, res: NextApiResp
 
     const mailOptions = {
         from: 'form@sspvas.com',
-        to: ['support@sspvas.com', 'sean.m.s.pe@gmail.com' ],
+        to: ['support@sspvas.com', 'sean.m.s.pe@gmail.com', 'sspvirtualassistants@gmail.com' ],
         subject: 'Someone filled out the Contact Form',
         html
     };
