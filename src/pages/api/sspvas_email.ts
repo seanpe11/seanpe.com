@@ -56,7 +56,7 @@ export default function handle(req: SSSPVAsEmailNextApiRequest, res: NextApiResp
       if (error) {
           return res.status(500).send(error)
       } else {
-          return res.status(200).send("email sent with details" + req.body)
+          return res.status(200).send('ok')
       }
 
     })
