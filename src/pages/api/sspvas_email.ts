@@ -14,7 +14,7 @@ interface SSSPVAsEmailNextApiRequest extends NextApiRequest {
     }
 }
 
-export default function handle(req: SSSPVAsEmailNextApiRequest, res: NextApiResponse){
+export default async function handle(req: SSSPVAsEmailNextApiRequest, res: NextApiResponse){
     console.log(req.headers)
     console.log(req.body)
 
