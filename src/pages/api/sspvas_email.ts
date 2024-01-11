@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import NextCors from 'nextjs-cors' 
 import nodemailer, { Transporter } from "nodemailer"
 
 interface SSSPVAsEmailNextApiRequest extends NextApiRequest {
@@ -14,7 +15,15 @@ interface SSSPVAsEmailNextApiRequest extends NextApiRequest {
 }
 
 export default function handle(req: SSSPVAsEmailNextApiRequest, res: NextApiResponse){
+    console.log(req.headers)
+    console.log(req.body)
 
+    await NextCors(req, res, {
+        // Options
+        methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+        origin: '*',
+        optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+     });
 
     if (req.body.matimis){
         res.status(200).send("lol")
@@ -32,29 +41,30 @@ export default function handle(req: SSSPVAsEmailNextApiRequest, res: NextApiResp
       });
 
 
+    console.log(req.body)
     const html = `<html><h4>From: </h4>${req.body.name} <a href="mailto:${req.body.email}" target="_blank">${req.body.email}</a>
         <h4>Company: </h4>${req.body.company}
         <h4>Number: </h4>${req.body.phone}
         <h4>Package: </h4>${req.body.package}<h4>Message: </h4> <p>${req.body.message}</p></html>`
+    console.log(html)
 
 
     const mailOptions = {
         from: 'form@sspvas.com',
-        to: ['support@sspvas.com', 'sean.m.s.pe@gmail.com', 'sspvirtualassistants@gmail.com' ],
+        to: ['sean.m.s.pe@gmail.com'],
+        // to: ['support@sspvas.com', 'sean.m.s.pe@gmail.com', 'sspvirtualassistants@gmail.com' ],
         subject: 'Someone filled out the Contact Form',
         html
     };
 
 
+    console.log("mail attempt")
+
     transporter.sendMail(mailOptions, function(error, info){
-
-      console.log(info)
-
       if (error) {
           return res.status(500).send(error)
       } else {
           return res.status(200).send('Your message has been sent. If you have other concerns, email support@sspvas.com')
       }
-
     })
 } 
