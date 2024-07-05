@@ -17,7 +17,7 @@ const Tattoo: NextPage = () => {
         <h2>Here&apos;s a picture of you and me because I love you, to showcase that I really can put whatever I want on this website</h2>
         <div>
           <h1>Arguments as to why I can have a tattoo</h1>
-          <Image src={`/images/sweet-mama.jpg`} />
+          <Image src={`/images/sweet-mama.jpg`} alt={'hello'} />
           <ul>
             <li>I&apos;m a big boy now</li>
             <li>I chose designs that are cool</li>
