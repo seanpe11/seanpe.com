@@ -59,15 +59,6 @@ const Home: NextPage = () => {
                 Check out a fun typing game I made!
               </div>
             </Link>
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-              href="/blog"
-            >
-              <h3 className="text-2xl font-bold">Blog</h3>
-              <div className="text-lg">
-                View my blog!
-              </div>
-            </Link>
           </div>
           <div className="flex flex-col items-center gap-2">
             <p className="text-2xl text-white">
@@ -77,9 +68,6 @@ const Home: NextPage = () => {
               A quote from somewhere, sometime in my life.
             </p>
           </div>
-        </div>
-        <div className="flex flex-row items-center gap-3">
-          <Timer targetDate={new Date("12/19/2023 12:50:00")} eventName="Flight to Houston" />
         </div>
       </main>
     </>
