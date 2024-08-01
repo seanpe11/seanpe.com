@@ -50,6 +50,24 @@ const Home: NextPage = () => {
                 Click to download
               </div>
             </Link>
+            <Link
+              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
+              href="https://docs.google.com/document/d/1kS4Kngv_D16vuzcgklJRGzdMboTJEfwbrKpxoUHVgUc/export?format=pdf"
+            >
+              <h3 className="text-2xl font-bold">Blog</h3>
+              <div className="text-lg">
+                work in progress...
+              </div>
+            </Link>
+            <Link
+              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
+              href="https://197cpd.ph/"
+            >
+              <h3 className="text-2xl font-bold">Lates Project</h3>
+              <div className="text-lg">
+                Check out my latest/current project!
+              </div>
+            </Link>
             {/* <Link
               className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
               href="/race"
