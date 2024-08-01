@@ -5,8 +5,18 @@
 await import("./src/env.mjs");
 
 /** @type {import("next").NextConfig} */
-const config = {
+const nextConfig = {
   reactStrictMode: true,
+
+  async redirects() {
+    return [
+      {
+        source: '/tattoo',
+        destination: '/home',
+        permanent: true,
+      },
+    ];
+  },
 
   /**
    * If you have `experimental: { appDir: true }` set, then you must comment the below `i18n` config
@@ -19,4 +29,5 @@ const config = {
     defaultLocale: "en",
   },
 };
-export default config;
+
+export default nextConfig;
