@@ -4,7 +4,7 @@ import Image from "next/image"
 import { redirect } from "next/navigation";
 
 const Tattoo: NextPage = () => {
-  return redirect("/")
+  if (true) redirect("/")
   return (
     <>
       <Head>
