@@ -1,7 +1,7 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import Modal from "~/components/TattooModal";
 import { HomeTab } from "~/components/lander/HomeTab";
@@ -10,11 +10,15 @@ import { ExperienceTab } from "~/components/lander/ExperienceTab";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Home: NextPage = () => {
-  const scanned = useRouter().query.scanned;
+  const router = useRouter();
+  const scanned = router.query.scanned;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  if (scanned) {
-    setIsModalOpen(true);
-  }
+  
+  useEffect(() => {
+    if (scanned) {
+      setIsModalOpen(true);
+    }
+  }, [scanned]);
 
   const closeModal = () => setIsModalOpen(false);
 
@@ -134,7 +138,7 @@ const Home: NextPage = () => {
       <Modal show={isModalOpen} onClose={closeModal}>
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-4">QR Code Scanned!</h2>
-          <p>You've successfully scanned the QR code.</p>
+          <p>You&apos;ve successfully scanned the QR code.</p>
         </div>
       </Modal>
     </>

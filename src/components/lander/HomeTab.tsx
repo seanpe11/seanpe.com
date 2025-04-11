@@ -74,7 +74,7 @@ export const HomeTab = () => {
                 transition={{ duration: 0.25, delay: 0.45 }}
                 className="rounded-full cursor-pointer"
                 onClick={() => {
-                  navigator.clipboard.writeText("sean.m.s.pe@gmail.com");
+                  void navigator.clipboard.writeText("sean.m.s.pe@gmail.com");
                   toast({
                     title: "Email copied!",
                     description: "sean.m.s.pe@gmail.com has been copied to your clipboard",
@@ -110,10 +110,17 @@ export const HomeTab = () => {
         >
           <div className="mt-8 flex flex-col items-center justify-start gap-4">
             <div className="w-full">
-              <p className="text-white text-lg text-semibold">
-                Hi! I'm Sean. I hold a Bachelor's degree in Computer Science and have worked as a full-stack developer for 2 years, base myself out of Houston, Texas. I'm a problem-solver at heart and love to build solutions that tackle real-world problems. Let's work together! Explore my projects here or reach out to me on <a href="https://www.linkedin.com/in/sean-pe-84b1401a4/" className="text-[#33ccff] hover:underline">LinkedIn</a>.
+              <h3 className="text-xl font-semibold text-white mb-2">Connect with Me</h3>
+              <p className="text-lg text-gray-300">
+                Looking for a skilled full-stack developer to bring your project to life? Let&apos;s connect! 
+                I&apos;m passionate about building innovative solutions and contributing to exciting projects. 
+                Whether you need a complex web application, a mobile app, or help with your existing codebase, 
+                I&apos;m ready to tackle the challenge. Reach out, and let&apos;s discuss how we can work together.
               </p>
-              <p className="text-slate-300 text-sm">P.S. I use neovim and Linux btw, so if you're reaching out, I'd love to see your config!</p>
+              <p className="text-lg text-gray-300 mt-4">
+                Beyond coding, I&apos;m also interested in exploring new technologies, contributing to open source, 
+                and continuously improving my skills. Let&apos;s build something amazing together!
+              </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 mt-4 items-center">
               <motion.div

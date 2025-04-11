@@ -34,7 +34,7 @@ export const AboutTab = () => {
           </CardHeader>
           <CardContent>
             <p className="text-slate-300">
-              I'm a full-stack developer with an addiction to problem-solving. My goal in life is to build as many solutions as I can—solutions that tackle real-world problems and streamline everyday processes. Software is the most powerful tool I know to help people, and I use my engineering skills to create meaningful impact.
+              I&apos;m a full-stack developer with an addiction to problem-solving. My goal in life is to build as many solutions as I can—solutions that tackle real-world problems and streamline everyday processes. Software is the most powerful tool I know to help people, and I use my engineering skills to create meaningful impact.
             </p>
           </CardContent>
         </Card>

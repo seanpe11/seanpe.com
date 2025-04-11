@@ -17,7 +17,7 @@ const TypeRace: React.FC = () => {
     if (!quote) {
       refetch().then((result) => {
         setQuote(result.data)
-      })
+      }).catch(console.error);
     }
   }, [quote, refetch])
 
@@ -49,7 +49,7 @@ const TypeRace: React.FC = () => {
     setLoc(0)
     refetch().then((result) => {
       setQuote(result.data)
-    })
+    }).catch(console.error);
   }
 
   useEffect(() => {
