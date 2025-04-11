@@ -1,26 +1,25 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
 const Timer = ({ targetDate, eventName } : { targetDate: Date, eventName: string }) => {
-  const calculateTimeRemaining = () => {
+  const calculateTimeRemaining = useCallback(() => {
     const now = new Date();
     const difference = targetDate.getTime() - now.getTime();
     return difference > 0 ? Math.floor(difference / 1000) : 0;
-  };
+  }, [targetDate]);
 
 
-  const [time, setTime] = useState<number>(calculateTimeRemaining) 
+  const [time, setTime] = useState<number>(calculateTimeRemaining)
 
 
   useEffect(() => {
+    setTime(calculateTimeRemaining());
+
     const timer = setInterval(() => {
-      setTime((_prevTime) => {
-        const newTime = calculateTimeRemaining();
-        return newTime;
-      });
+      setTime(calculateTimeRemaining());
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [calculateTimeRemaining]);
 
   const formatTime = () => {
     const days = Math.floor(time / (24 * 3600));
