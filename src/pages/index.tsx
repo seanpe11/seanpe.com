@@ -1,20 +1,15 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
-import { api } from "~/utils/api";
 import Modal from "~/components/TattooModal";
-import { motion } from "framer-motion";
-import { SocialIcon } from "react-social-icons";
-import Image from "next/image";
+import { HomeTab } from "~/components/lander/HomeTab";
+import { AboutTab } from "~/components/lander/AboutTab";
+import { ExperienceTab } from "~/components/lander/ExperienceTab";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Home: NextPage = () => {
-  const quote = api.notion.getQuote.useQuery(undefined, {
-    refetchInterval: false, // Disable auto-refresh
-  });
   const scanned = useRouter().query.scanned;
   const [isModalOpen, setIsModalOpen] = useState(false);
   if (scanned) {
@@ -31,243 +26,117 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#525252] to-[#040404]">
-        <div className="relative isolate px-6 pt-14 lg:px-8 w-full">
-          {/* Background gradient */}
+        <div className="relative isolate w-full max-w-7xl mx-auto px-6 pt-14 lg:px-8">
+          {/* Background gradients */}
           <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
             <div
-              className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#33ccff] to-[#00ff99] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+              className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#33ccff] to-[#00ff99] opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
               style={{
                 clipPath:
-                  "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
+                  "polygon(0% 0%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%)",
+              }}
+            />
+            <div
+              className="absolute left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#00ff99] to-[#33ccff] opacity-20 sm:w-[72.1875rem]"
+              style={{
+                clipPath:
+                  "polygon(25% 0%, 100% 0%, 100% 100%, 25% 100%, 0% 50%)",
               }}
             />
           </div>
 
-          <div className="container flex flex-col items-center justify-center gap-12 px-4">
+          <div className="flex flex-col items-center justify-center gap-12">
             <Tabs defaultValue="home" className="w-full max-w-4xl">
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="home">Home</TabsTrigger>
-                <TabsTrigger value="about">About</TabsTrigger>
-                <TabsTrigger value="experience">Experience</TabsTrigger>
+              <TabsList className="grid w-full grid-cols-3 bg-transparent p-0">
+                <TabsTrigger 
+                  value="home" 
+                  className="data-[state=active]:bg-[#33ccff] data-[state=active]:text-gray-900 data-[state=active]:shadow-lg data-[state=active]:shadow-[#33ccff]/30 border border-white/20 text-white hover:bg-white/10 transition-all duration-200 rounded-none"
+                >
+                  Home
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="about" 
+                  className="data-[state=active]:bg-[#33ccff] data-[state=active]:text-gray-900 data-[state=active]:shadow-lg data-[state=active]:shadow-[#33ccff]/30 border border-white/20 text-white hover:bg-white/10 transition-all duration-200 rounded-none"
+                >
+                  About
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="experience" 
+                  className="data-[state=active]:bg-[#33ccff] data-[state=active]:text-gray-900 data-[state=active]:shadow-lg data-[state=active]:shadow-[#33ccff]/30 border border-white/20 text-white hover:bg-white/10 transition-all duration-200 rounded-none"
+                >
+                  Experience
+                </TabsTrigger>
               </TabsList>
               
-              {/* Home Tab */}
               <TabsContent value="home" className="mt-8">
-                <div className="mx-auto max-w-4xl py-8 sm:py-10 lg:py-14">
-                  <div className="flex flex-col sm:flex-row items-center justify-between gap-8">
-                    {/* Left side - Profile and Name */}
-                    <div className="flex flex-col items-center sm:items-start">
-                      <motion.div
-                        initial={{ scale: 0, x: -150 }}
-                        animate={{ scale: 1, x: 0 }}
-                        transition={{ duration: 0.25, delay: 0.25 }}
-                        className="w-24 h-24 mx-3 sm:w-44 sm:h-44 rounded-full overflow-hidden border-2 border-[#33ccff]"
-                      >
-                        <Image
-                          src="/images/profile.jpg"
-                          width={500}
-                          height={500}
-                          className="object-cover w-full h-full"
-                          alt="Sean Pe"
-                          priority
-                        />
-                      </motion.div>
-                      <div className="mx-3 mt-4">
-                        <motion.h1
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5 }}
-                          className="text-2xl font-bold tracking-tight text-white sm:text-5xl"
-                        >
-                          Sean Pe
-                          <span className="block text-base sm:text-3xl bg-gradient-to-r from-[#33ccff] to-[#00ff99] bg-clip-text text-transparent">
-                            Full Stack Developer
-                          </span>
-                        </motion.h1>
-                        <div className="flex gap-4 mt-4">
-                          <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            transition={{ duration: 0.25, delay: 0.55 }}
-                            className="rounded-full"
-                          >
-                            <SocialIcon
-                              style={{ height: 40, width: 40 }}
-                              url="https://github.com/seanpe11"
-                              bgColor="#33ccff"
-                            />
-                          </motion.div>
-                          <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            transition={{ duration: 0.25, delay: 0.35 }}
-                            className="rounded-full"
-                          >
-                            <SocialIcon
-                              style={{ height: 40, width: 40 }}
-                              url="https://www.linkedin.com/in/sean-pe-84b1401a4/"
-                              bgColor="#33ccff"
-                            />
-                          </motion.div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Right side - Blurb and Buttons */}
-                    <motion.div
-                      initial={{ opacity: 0, x: 50 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5, delay: 0.3 }}
-                      className="flex-1 max-w-lg"
-                    >
-                      <div className="mt-8 flex flex-col sm:flex-row items-center justify-start gap-4">
-                        <motion.button
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, delay: 0.5 }}
-                          className="px-6 py-3 rounded-lg bg-gradient-to-r from-[#33ccff] to-[#00ff99] text-white font-medium hover:opacity-90 transition-opacity"
-                        >
-                          Download Resume
-                        </motion.button>
-                        
-                        <motion.div
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, delay: 0.6 }}
-                          className="flex flex-col items-center"
-                        >
-                          <button className="px-6 py-3 rounded-lg bg-white/10 text-white font-medium hover:bg-white/20 transition-colors">
-                            Latest
-                          </button>
-                          <span className="text-xs text-zinc-400 mt-1">View what I'm working on</span>
-                        </motion.div>
-                      </div>
-                    </motion.div>
-                  </div>
-
-                  {/* Quote Section */}
+                <AnimatePresence mode="wait">
                   <motion.div
+                    key="home"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.7 }}
-                    className="mt-12 text-center"
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3 }}
                   >
-                    <p className="text-sm text-zinc-400 mb-2">A quote from somewhere, sometime in my life</p>
-                    <p className="text-lg sm:text-xl font-bold text-white">
-                      {quote.data ? quote.data.quote.text : "Loading tRPC query..."}
-                    </p>
-                    <button 
-                      onClick={() => quote.refetch()}
-                      className="mt-4 px-4 py-2 rounded-lg bg-white/10 text-white font-medium hover:bg-white/20 transition-colors"
-                    >
-                      ↻
-                    </button>
+                    <HomeTab />
                   </motion.div>
-                </div>
+                </AnimatePresence>
               </TabsContent>
 
-              {/* About Tab */}
               <TabsContent value="about" className="mt-8">
-                <div className="grid gap-6 md:grid-cols-2">
-                  <Card className="bg-white/10 border-none">
-                    <CardHeader>
-                      <CardTitle className="text-white">Skills</CardTitle>
-                      <CardDescription className="text-slate-300">Technical Proficiencies</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        <div>
-                          <h4 className="text-lg font-semibold text-white">Frontend</h4>
-                          <p className="text-slate-300">React, Next.js, TypeScript, Tailwind CSS</p>
-                        </div>
-                        <div>
-                          <h4 className="text-lg font-semibold text-white">Backend</h4>
-                          <p className="text-slate-300">Node.js, Express, tRPC, Prisma</p>
-                        </div>
-                        <div>
-                          <h4 className="text-lg font-semibold text-white">DevOps</h4>
-                          <p className="text-slate-300">Docker, AWS, Vercel</p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  <Card className="bg-white/10 border-none">
-                    <CardHeader>
-                      <CardTitle className="text-white">About Me</CardTitle>
-                      <CardDescription className="text-slate-300">Personal Information</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-slate-300">
-                        I'm a full-stack developer passionate about creating efficient and user-friendly applications.
-                        With a strong foundation in both frontend and backend technologies, I strive to build
-                        scalable and maintainable solutions.
-                      </p>
-                    </CardContent>
-                  </Card>
-                </div>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key="about"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <AboutTab />
+                  </motion.div>
+                </AnimatePresence>
               </TabsContent>
 
-              {/* Experience Tab */}
               <TabsContent value="experience" className="mt-8">
-                <div className="space-y-6">
-                  <Card className="bg-white/10 border-none">
-                    <CardHeader>
-                      <CardTitle className="text-white">Projects</CardTitle>
-                      <CardDescription className="text-slate-300">Recent Work</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        <div>
-                          <h4 className="text-lg font-semibold text-white">197 CPD</h4>
-                          <p className="text-slate-300">A professional development platform built with Next.js and tRPC</p>
-                          <Link href="https://197cpd.ph/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">
-                            View Project →
-                          </Link>
-                        </div>
-                        <div>
-                          <h4 className="text-lg font-semibold text-white">TypeRace</h4>
-                          <p className="text-slate-300">A typing speed test application with real-time WPM calculation</p>
-                          <Link href="/race" className="text-blue-400 hover:text-blue-300">
-                            Try it out →
-                          </Link>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  <Card className="bg-white/10 border-none">
-                    <CardHeader>
-                      <CardTitle className="text-white">Work Experience</CardTitle>
-                      <CardDescription className="text-slate-300">Professional Journey</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        <div>
-                          <h4 className="text-lg font-semibold text-white">Full Stack Developer</h4>
-                          <p className="text-slate-300">Current Position</p>
-                          <p className="text-slate-300">Building modern web applications with React, Next.js, and TypeScript</p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key="experience"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <ExperienceTab />
+                  </motion.div>
+                </AnimatePresence>
               </TabsContent>
             </Tabs>
           </div>
 
-          {/* Bottom gradient */}
+          {/* Bottom gradients */}
           <div className="absolute inset-x-0 top-[calc(100%-30rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-47rem)]" aria-hidden="true">
             <div
-              className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#33ccff] to-[#00ff99] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+              className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[-30deg] bg-gradient-to-tr from-[#33ccff] to-[#00ff99] opacity-20 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
               style={{
                 clipPath:
-                  "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
+                  "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 50%, 50% 0%)",
+              }}
+            />
+            <div
+              className="absolute left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[-30deg] bg-gradient-to-tr from-[#00ff99] to-[#33ccff] opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+              style={{
+                clipPath:
+                  "polygon(0% 0%, 75% 0%, 100% 25%, 100% 100%, 0% 100%)",
               }}
             />
           </div>
         </div>
       </main>
+      <Modal show={isModalOpen} onClose={closeModal}>
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-4">QR Code Scanned!</h2>
+          <p>You've successfully scanned the QR code.</p>
+        </div>
+      </Modal>
     </>
   );
 };
