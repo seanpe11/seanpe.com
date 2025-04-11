@@ -4,7 +4,7 @@ import { GetServerSideProps } from 'next';
 export const getServerSideProps: GetServerSideProps = () => {
   return {
     redirect: {
-      destination: '/',
+      destination: '/?scanned=true',
       permanent: false, // Set to true if you want a permanent redirect (HTTP 301)
     },
   };

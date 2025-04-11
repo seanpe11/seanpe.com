@@ -3,19 +3,23 @@ import { ALLOWED_KEYS } from "~/utils/constants";
 import { api } from "~/utils/api";
 import getRandomQuote from "~/utils/notion/quote"
 
-
 const TypeRace: React.FC = () => {
   const [typed, setTyped] = useState<Array<KeyboardEvent>>([])
   const [outString, setOutString] = useState("")
-  const { data, refetch } = api.notion.getQuote.useQuery()
-  const quote = data
-
-  // const [prompt, setPrompt] = useState("")
-  // used to track where user is
+  const { data, refetch } = api.notion.getQuote.useQuery(undefined, { enabled: false })
+  const [quote, setQuote] = useState(data)
   const [loc, setLoc] = useState(0)
   const [finished, setFinished] = useState(false)
   const [start, setStart] = useState<Date>(new Date())
   const [wpm, setWpm] = useState(0)
+
+  useEffect(() => {
+    if (!quote) {
+      refetch().then((result) => {
+        setQuote(result.data)
+      })
+    }
+  }, [quote, refetch])
 
   const onKeyPress = (event: KeyboardEvent) => {
     setTyped(prev => [...prev, event])
@@ -43,10 +47,14 @@ const TypeRace: React.FC = () => {
     setWpm(0)
     setStart(new Date())
     setLoc(0)
+    refetch().then((result) => {
+      setQuote(result.data)
+    })
   }
 
   useEffect(() => {
-      window.addEventListener("keydown", onKeyPress)
+    window.addEventListener("keydown", onKeyPress)
+    return () => window.removeEventListener("keydown", onKeyPress)
   }, []);
 
   useEffect(() => {
