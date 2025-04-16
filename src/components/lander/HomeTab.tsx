@@ -4,8 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { api } from "~/utils/api";
 import { useToast } from "~/hooks/use-toast";
+import type { Dispatch, SetStateAction } from 'react';
 
-export const HomeTab = () => {
+// Define props type including setActiveTab
+type HomeTabProps = {
+  setActiveTab: Dispatch<SetStateAction<string>>;
+};
+
+export const HomeTab = ({ setActiveTab }: HomeTabProps) => {
   const quote = api.notion.getQuote.useQuery(undefined, {
     refetchInterval: false,
   });
@@ -112,15 +118,12 @@ export const HomeTab = () => {
             <div className="w-full">
               <h3 className="text-xl font-semibold text-white mb-2">Connect with Me</h3>
               <p className="text-lg text-gray-300">
-                Looking for a skilled full-stack developer to bring your project to life? Let&apos;s connect! 
-                I&apos;m passionate about building innovative solutions and contributing to exciting projects. 
-                Whether you need a complex web application, a mobile app, or help with your existing codebase, 
-                I&apos;m ready to tackle the challenge. Reach out, and let&apos;s discuss how we can work together.
+                Hi! I&apos;m Sean. I hold a Bachelor&apos;s degree in Computer Science and have worked as a full-stack developer for 2 years. 
+                I&apos;m a problem-solver at heart and love to build solutions that tackle real-world problems. 
+                Let&apos;s build together! 
+                Explore my <a onClick={() => setActiveTab('experience')} className="text-[#33ccff] hover:underline cursor-pointer">experience here</a> or reach out to me on <a href="https://www.linkedin.com/in/sean-pe-84b1401a4/" className="text-[#33ccff] hover:underline">LinkedIn</a>.
               </p>
-              <p className="text-lg text-gray-300 mt-4">
-                Beyond coding, I&apos;m also interested in exploring new technologies, contributing to open source, 
-                and continuously improving my skills. Let&apos;s build something amazing together!
-              </p>
+              <p className="text-slate-300 text-xs mt-2">P.S. I use neovim and Linux btw (lol), so if you do too, reach out and let&apos;s share configs!</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 mt-4 items-center">
               <motion.div
@@ -130,7 +133,7 @@ export const HomeTab = () => {
                 className="flex items-center"
               >
                 <Link
-                  href="/race"
+                  href=""
                   className="px-6 py-3 rounded-none bg-[#33ccff] text-gray-900 font-medium hover:opacity-90 transition-opacity shadow-lg shadow-[#33ccff]/30 border border-white/20 drop-shadow-[0_0_2px_rgba(255,255,255,0.8)]"
                 >
                   Download Resume <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 inline-block ml-1 drop-shadow-[0_0_2px_rgba(255,255,255,0.8)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">

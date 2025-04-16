@@ -1,6 +1,7 @@
 import { createTRPCRouter } from "~/server/api/trpc";
 import { exampleRouter } from "~/server/api/routers/example";
 import { notionRouter } from "~/server/api/routers/notion";
+import { portfolioRouter } from "~/server/api/routers/portfolio";
 
 /**
  * This is the primary router for your server.
@@ -10,6 +11,7 @@ import { notionRouter } from "~/server/api/routers/notion";
 export const appRouter = createTRPCRouter({
   example: exampleRouter,
   notion: notionRouter,
+  portfolio: portfolioRouter,
 });
 
 // export type definition of API

@@ -1,4 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
+import { SkillIcons } from "../SkillIcons";
 
 export const AboutTab = () => {
   return (
@@ -47,20 +48,7 @@ export const AboutTab = () => {
             <CardDescription className="text-slate-300">Technical Proficiencies</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
-              <div>
-                <h4 className="text-lg font-semibold text-white">Frontend</h4>
-                <p className="text-slate-300">React, Next.js, TypeScript, Tailwind CSS</p>
-              </div>
-              <div>
-                <h4 className="text-lg font-semibold text-white">Backend</h4>
-                <p className="text-slate-300">Node.js, Express, tRPC, Prisma</p>
-              </div>
-              <div>
-                <h4 className="text-lg font-semibold text-white">DevOps</h4>
-                <p className="text-slate-300">Docker, AWS, Vercel</p>
-              </div>
-            </div>
+            <SkillIcons />
           </CardContent>
         </Card>
       </div>

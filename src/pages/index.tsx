@@ -13,6 +13,7 @@ const Home: NextPage = () => {
   const router = useRouter();
   const scanned = router.query.scanned;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState("home");
   
   useEffect(() => {
     if (scanned) {
@@ -50,7 +51,7 @@ const Home: NextPage = () => {
           </div>
 
           <div className="flex flex-col items-center justify-center gap-12">
-            <Tabs defaultValue="home" className="w-full max-w-4xl">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full max-w-4xl">
               <TabsList className="grid w-full grid-cols-3 bg-transparent p-0">
                 <TabsTrigger 
                   value="home" 
@@ -81,7 +82,7 @@ const Home: NextPage = () => {
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <HomeTab />
+                    <HomeTab setActiveTab={setActiveTab} />
                   </motion.div>
                 </AnimatePresence>
               </TabsContent>
