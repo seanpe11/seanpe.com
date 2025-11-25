@@ -59,7 +59,6 @@ export const HomeTab = ({ setActiveTab }: HomeTabProps) => {
                 <SocialIcon
                   style={{ height: 40, width: 40 }}
                   url="https://github.com/seanpe11"
-                  bgColor="#33ccff"
                 />
               </motion.div>
               <motion.div
@@ -71,7 +70,6 @@ export const HomeTab = ({ setActiveTab }: HomeTabProps) => {
                 <SocialIcon
                   style={{ height: 40, width: 40 }}
                   url="https://www.linkedin.com/in/sean-pe-84b1401a4/"
-                  bgColor="#33ccff"
                 />
               </motion.div>
               <motion.div
@@ -96,7 +94,7 @@ export const HomeTab = ({ setActiveTab }: HomeTabProps) => {
                 >
                   <path
                     d="M3 8L10.89 13.26C11.2187 13.4793 11.6049 13.5963 12 13.5963C12.3951 13.5963 12.7813 13.4793 13.11 13.26L21 8M5 19H19C19.5304 19 20.0391 18.7893 20.4142 18.4142C20.7893 18.0391 21 17.5304 21 17V7C21 6.46957 20.7893 5.96086 20.4142 5.58579C20.0391 5.21071 19.5304 5 19 5H5C4.46957 5 3.96086 5.21071 3.58579 5.58579C3.21071 5.96086 3 6.46957 3 7V17C3 17.5304 3.21071 18.0391 3.58579 18.4142C3.96086 18.7893 4.46957 19 5 19Z"
-                    stroke="#33ccff"
+                    stroke="#FFFFFF"
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -118,9 +116,9 @@ export const HomeTab = ({ setActiveTab }: HomeTabProps) => {
             <div className="w-full">
               <h3 className="text-xl font-semibold text-white mb-2">Connect with Me</h3>
               <p className="text-lg text-gray-300">
-                Hi! I&apos;m Sean. I hold a Bachelor&apos;s degree in Computer Science and have worked as a full-stack developer for 2 years. 
-                I&apos;m a problem-solver at heart and love to build solutions that tackle real-world problems. 
-                Let&apos;s build together! 
+                Hi! I&apos;m Sean. I hold a Bachelor&apos;s degree in Computer Science and have worked as a full-stack developer for 2 years.
+                I&apos;m a problem-solver at heart and love to build solutions that tackle real-world problems.
+                Let&apos;s build together!
                 Explore my <a onClick={() => setActiveTab('experience')} className="text-[#33ccff] hover:underline cursor-pointer">experience here</a> or reach out to me on <a href="https://www.linkedin.com/in/sean-pe-84b1401a4/" className="text-[#33ccff] hover:underline">LinkedIn</a>.
               </p>
               <p className="text-slate-300 text-xs mt-2">P.S. I use neovim and Linux btw (lol), so if you do too, reach out and let&apos;s share configs!</p>
@@ -133,7 +131,7 @@ export const HomeTab = ({ setActiveTab }: HomeTabProps) => {
                 className="flex items-center"
               >
                 <Link
-                  href=""
+                  href="https://docs.google.com/document/d/1oXcf71FUwzuUDZvEbnFn7XkzoAzlXNvfDsjcgP-WpzY/export?gid=0&format=pdf"
                   className="px-6 py-3 rounded-none bg-[#33ccff] text-gray-900 font-medium hover:opacity-90 transition-opacity shadow-lg shadow-[#33ccff]/30 border border-white/20 drop-shadow-[0_0_2px_rgba(255,255,255,0.8)]"
                 >
                   Download Resume <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 inline-block ml-1 drop-shadow-[0_0_2px_rgba(255,255,255,0.8)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -141,14 +139,14 @@ export const HomeTab = ({ setActiveTab }: HomeTabProps) => {
                   </svg>
                 </Link>
               </motion.div>
-              
+
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
                 className="flex flex-col items-center justify-center"
               >
-                <Link href="https://197cpd.ph" className="px-6 py-3 rounded-none bg-white/10 text-white font-medium hover:bg-white/20 transition-colors">
+                <Link href="https://197cpd.ph" target="_blank" className="px-6 py-3 rounded-none bg-white/10 text-white font-medium hover:bg-white/20 transition-colors">
                   Latest Project
                 </Link>
               </motion.div>
@@ -165,7 +163,7 @@ export const HomeTab = ({ setActiveTab }: HomeTabProps) => {
         className="mt-12 text-center"
       >
         <p className="text-sm text-zinc-400 mb-2">A quote from somewhere, sometime in my life</p>
-        <motion.p 
+        <motion.p
           key={quote.data?.quote.text}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}

@@ -4,7 +4,7 @@ import type { BlockObjectResponse, ParagraphBlockObjectResponse, RichTextItemRes
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
 function randInt(max: number) {
-    return Math.floor(Math.random() * max)
+  return Math.floor(Math.random() * max)
 }
 
 // function parseNotionText(textArr: Array<RichTextItemResponse>){
@@ -25,43 +25,40 @@ function randInt(max: number) {
 //     return finalString
 // }
 
-function plainNotionTextJson(textArr: Array<RichTextItemResponse>){
-    const finalString = textArr.reduce((prev, current) => {
-        return prev + current.plain_text
-    }, "")
+function plainNotionTextJson(textArr: Array<RichTextItemResponse>) {
+  const finalString = textArr.reduce((prev, current) => {
+    return prev + current.plain_text
+  }, "")
 
-    return {
-        text: finalString
-    }
+  return {
+    text: finalString
+  }
 }
 
 async function getRandomQuote() {
   const pageId = '5d43fa370eb24a89bbba1da3c192c49d';
-  let quotes: (BlockObjectResponse)[]; 
+  let quotes: (BlockObjectResponse)[];
 
   let response = await notion.blocks.children.list({
-      block_id: pageId,
-      page_size: 100,
+    block_id: pageId,
+    page_size: 100,
   });
   quotes = response.results as BlockObjectResponse[]
-  console.log(quotes.length)
 
-  while(response.has_more)
-  {
-      response = await notion.blocks.children.list({
-          block_id: pageId,
-          page_size: 100,
-      });
-      const { results } = response
-      
+  while (response.has_more) {
+    response = await notion.blocks.children.list({
+      block_id: pageId,
+      page_size: 100,
+    });
+    const { results } = response
+
     quotes = [...quotes, ...(results as BlockObjectResponse[])]
   }
   quotes = quotes.filter((q: BlockObjectResponse) => q.type == "paragraph")
-  console.log(quotes.length)
-  
+
   const block_id = quotes[randInt(quotes.length)]?.id ?? ''
   const block = await notion.blocks.retrieve({
-      block_id: block_id
+    block_id: block_id
   }) as ParagraphBlockObjectResponse
 
   const quote = plainNotionTextJson(block.paragraph.rich_text)
