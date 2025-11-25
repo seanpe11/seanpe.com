@@ -3,6 +3,7 @@
  * for Docker builds.
  */
 await import("./src/env.mjs");
+console.log("USING MJS not js")
 
 /** @type {import("next").NextConfig} */
 const nextConfig = {
