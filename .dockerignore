@@ -5,5 +5,17 @@ Dockerfile
 .dockerignore
 node_modules
 .next
-.env.local
 README.md
+
+# Secrets — never let these into a layer that gets pushed to a registry.
+.env
+.env.*
+!.env.example
+
+# Local tooling
+.vercel
+.vscode
+
+# Deploy scaffolding — not part of the app image
+.github
+deploy

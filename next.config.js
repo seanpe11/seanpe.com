@@ -3,15 +3,28 @@
  * for Docker builds.
  */
 await import("./src/env.mjs");
-console.log("USING JS NOT MJS")
 
 /** @type {import("next").NextConfig} */
 const config = {
+  reactStrictMode: true,
+
   eslint: {
     // This will now be read by the build process
     ignoreDuringBuilds: true,
   },
-  output: 'standalone'
+
+  // Emits .next/standalone, which the Dockerfile runner stage copies.
+  output: "standalone",
+
+  async redirects() {
+    return [
+      {
+        source: "/tattoo",
+        destination: "/",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default config;

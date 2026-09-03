@@ -44,4 +44,9 @@ export const env = createEnv({
     // DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
     // DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
   },
+  /**
+   * Set `SKIP_ENV_VALIDATION=1` to build without a populated env (e.g. in Docker/CI).
+   * Runtime still validates, so the container needs the real values injected.
+   */
+  skipValidation: !!process.env.SKIP_ENV_VALIDATION,
 });

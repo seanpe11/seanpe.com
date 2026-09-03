@@ -3,21 +3,32 @@ FROM node:20-alpine AS base
 
 RUN apk add --no-cache libc6-compat openssl # needed for prisma
 
+# Corepack resolves the pnpm version from package.json's "packageManager" field.
+# Without that pin it fetches latest (pnpm 11+), which needs a newer Node than
+# this image ships and fails with ERR_UNKNOWN_BUILTIN_MODULE.
+ENV PNPM_HOME=/pnpm
+ENV PATH="$PNPM_HOME:$PATH"
+ENV NEXT_TELEMETRY_DISABLED=1
+RUN corepack enable
+
 # 1. Install dependencies only when needed
 FROM base AS deps
 WORKDIR /app
 COPY package.json pnpm-lock.yaml* ./
-COPY prisma ./prisma 
+COPY prisma ./prisma
 # needed for build
-RUN corepack enable && pnpm i --frozen-lockfile
+RUN pnpm i --frozen-lockfile
 
 # 2. Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+# .env is excluded via .dockerignore so it never lands in a pushed layer.
+# Validation is deferred to runtime, where compose injects the real values.
+ENV SKIP_ENV_VALIDATION=1
 # This will create the .next/standalone folder
-RUN corepack enable && pnpm run build
+RUN pnpm run build
 
 # 3. Production image, copy all the files and run next
 FROM base AS runner
@@ -38,5 +49,7 @@ USER nextjs
 
 EXPOSE 3000
 ENV PORT=3000
+# Bind all interfaces, not just loopback, so the port is reachable from outside the container.
+ENV HOSTNAME=0.0.0.0
 # server.js is created by next build from the standalone output
-CMD ["node", "server.js"]	
+CMD ["node", "server.js"]
