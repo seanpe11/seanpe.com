@@ -36,7 +36,13 @@ WORKDIR /app
 ENV NODE_ENV=production
 
 RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
+RUN adduser -S nextjs -u 1001 -G nodejs
+
+# Create /data owned by the app user BEFORE the volume mounts. An empty named
+# volume inherits ownership from the image path; without this it mounts root-owned
+# and Prisma cannot write the SQLite file.
+RUN mkdir -p /data && chown nextjs:nodejs /data
+VOLUME /data
 
 COPY --from=builder /app/public ./public
 
