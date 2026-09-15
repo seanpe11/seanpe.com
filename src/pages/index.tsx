@@ -10,6 +10,8 @@ import { About } from "~/components/lander/About";
 import { Experience } from "~/components/lander/Experience";
 import { Projects } from "~/components/lander/Projects";
 import { QuoteBlock } from "~/components/lander/QuoteBlock";
+import { TrackMap } from "~/components/lander/TrackMap";
+import { LapBar } from "~/components/lander/LapBar";
 import { PROFILE } from "~/data/profile";
 
 const TABS: Tab[] = [
@@ -28,6 +30,17 @@ const Home: NextPage = () => {
   const scanned = router.query.scanned;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [active, setActive] = useState(0);
+  const [focus, setFocus] = useState(false);
+
+  // Esc leaves the lap focus view.
+  useEffect(() => {
+    if (!focus) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setFocus(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [focus]);
 
   useEffect(() => {
     if (scanned) setIsModalOpen(true);
@@ -39,6 +52,7 @@ const Home: NextPage = () => {
   }, []);
 
   const goTo = useCallback((i: number) => {
+    setFocus(false);
     setActive(i);
     const id = TABS[i]?.id ?? "home";
     window.history.replaceState(null, "", i === 0 ? window.location.pathname : `#${id}`);
@@ -50,7 +64,7 @@ const Home: NextPage = () => {
       content: (
         <>
           <Hero onShowWork={() => goTo(2)} />
-          <div className="h-10" />
+          <div className="min-h-[3rem] flex-1" />
           <QuoteBlock />
         </>
       ),
@@ -78,6 +92,14 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="relative isolate flex h-[100dvh] flex-col overflow-hidden bg-gradient-to-b from-[#1c1c1c] to-[#040404]">
+        {/* Lap replay behind everything, like thavlik.dev's EEG backdrop; the bar below brings it to the front */}
+        <div
+          className={`absolute inset-x-0 bottom-7 top-0 transition-opacity duration-300 ${focus ? "z-10" : "-z-10"}`}
+          aria-hidden={!focus}
+        >
+          <TrackMap variant={focus ? "focus" : "background"} className="h-full w-full" />
+        </div>
+
         {/* One soft accent blob */}
         <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
           <div
@@ -87,13 +109,19 @@ const Home: NextPage = () => {
         </div>
 
         {/* overflow + scrollbar-gutter reserve the same gutter the panels have, so the tabs line up with panel content */}
-        <header className="w-full shrink-0 overflow-y-auto [scrollbar-gutter:stable]">
+        <header className="relative z-20 w-full shrink-0 overflow-y-auto [scrollbar-gutter:stable]">
           <div className="mx-auto max-w-4xl px-6 pb-2 pt-6 sm:pt-10">
             <TabBar tabs={TABS} active={active} onChange={goTo} />
           </div>
         </header>
-        <div className="min-h-0 flex-1">
+        <div
+          className={`min-h-0 flex-1 transition-opacity duration-300 ${focus ? "pointer-events-none opacity-0" : "opacity-100"}`}
+          aria-hidden={focus}
+        >
           <Deck panels={panels} active={active} onChange={goTo} />
+        </div>
+        <div className="relative z-20">
+          <LapBar focus={focus} onToggle={() => setFocus((f) => !f)} />
         </div>
       </main>
       <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)}>

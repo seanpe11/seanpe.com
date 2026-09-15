@@ -7,6 +7,7 @@
   "scripts": {
     "build": "next build",
     "quotes:fetch": "node scripts/fetch-quotes.mjs",
+    "lap:fetch": "node scripts/fetch-lap.mjs",
     "dev": "next dev -p 8080",
     "postinstall": "prisma generate",
     "lint": "next lint",

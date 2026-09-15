@@ -19,4 +19,4 @@ export const Section = ({ id, title, blurb, children }: SectionProps) => (
 );
 
 export const cardClass =
-  "rounded-none border border-white/10 bg-white/5 p-5 transition-colors duration-200 hover:border-white/20";
+  "rounded-none border border-white/10 bg-[#0b0b0b]/75 p-5 transition-colors duration-200 hover:border-white/20";
