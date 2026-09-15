@@ -3,7 +3,23 @@ import { Section, cardClass } from "./Section";
 
 const ProjectCard = ({ project, index }: { project: Project; index: number }) => (
   <article className={`fade-up delay-${Math.min(index + 1, 4)} ${cardClass}`}>
-    <p className="text-[0.65rem] uppercase tracking-[0.2em] text-zinc-500">{project.kicker}</p>
+    {project.image && (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={project.image.src}
+        alt={project.image.alt}
+        loading="lazy"
+        className="mb-4 aspect-video w-full border border-white/10 object-cover"
+      />
+    )}
+    <p className="flex flex-wrap items-center gap-2 text-[0.65rem] uppercase tracking-[0.2em] text-zinc-500">
+      <span>{project.kicker}</span>
+      {project.status && (
+        <span className="border border-[#33ccff]/40 px-1.5 py-0.5 normal-case tracking-normal text-[#33ccff]/80">
+          {project.status}
+        </span>
+      )}
+    </p>
     <h3 className="mt-1 text-lg font-semibold text-white">{project.title}</h3>
     <p className="text-sm text-zinc-300">{project.tagline}</p>
     <p className="mt-3 text-sm leading-relaxed text-zinc-400">{project.body}</p>

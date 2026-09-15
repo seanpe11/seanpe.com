@@ -1,6 +1,6 @@
 /**
- * Skill groups, reconciled with the résumé's Skills section. Static because
- * this never changes at runtime.
+ * Skill groups: the résumé's Skills section plus what the projects on this
+ * site demonstrate. Static because this never changes at runtime.
  */
 export type SkillGroup = {
   title: string;
@@ -9,39 +9,36 @@ export type SkillGroup = {
 
 export const SKILL_GROUPS: SkillGroup[] = [
   {
+    title: "Web",
+    items: ["React", "Next.js", "tRPC", "Drizzle", "NextAuth", "FastAPI", "Express.js", "Vue.js", "Tailwind CSS", "Tauri"],
+  },
+  {
     title: "Infrastructure",
     items: [
       "Linux (Fedora, Ubuntu)",
       "Kubernetes (k3s)",
       "Docker",
       "Flux CD",
+      "Ansible",
       "PostgreSQL (CloudNativePG)",
+      "Supabase",
+      "GCP Cloud Run",
+      "AWS Lightsail",
+      "Cloudflare Tunnels, Pages & Workers",
+      "Tailscale",
       "Nginx",
       "systemd",
-      "Cloudflare Tunnels & DNS",
-      "Tailscale",
+      "GitHub Actions / GitLab CI",
       "SSH / tmux",
-      "TCP/IP",
-      "GitLab CI/CD",
-      "AWS Lightsail",
     ],
   },
   {
     title: "Languages",
-    items: [
-      "Python",
-      "TypeScript / JavaScript",
-      "Go",
-      "Rust",
-      "C++",
-      "Bash",
-      "PowerShell",
-      "SQL",
-    ],
+    items: ["Python", "TypeScript / JavaScript", "Go", "Rust", "C++", "SQL", "Bash", "PowerShell"],
   },
   {
-    title: "Web",
-    items: ["React", "Next.js", "FastAPI", "Express.js", "Vue.js", "Tailwind CSS"],
+    title: "Data & ML",
+    items: ["pandas", "NumPy", "Jupyter", "Whisper", "pytest"],
   },
   {
     title: "Clinical",

@@ -5,16 +5,16 @@
 export const PROFILE = {
   name: "Sean Pe",
   headline: "Full-Stack Developer",
-  subline: "Infrastructure, clinical workflows, and the web.",
+  subline: "Web apps, ML services, and the infrastructure under them.",
   location: "Houston, TX",
   email: "sean.m.s.pe@gmail.com",
   github: "https://github.com/seanpe11",
   linkedin: "https://www.linkedin.com/in/sean-pe-84b1401a4/",
   resume: "/resume.pdf",
-  /** Hero. Two short paragraphs, then the buttons. */
+  /** Hero. Two short paragraphs, then the buttons. Leads with what's been built. */
   intro: [
-    "I'm Sean, a software engineer in Houston. I built a FastAPI backend and the Python pipelines behind it for B2B clients at ConnectSys, and I now work inside a Baylor College of Medicine clinic, where I use Epic daily and build small tools for the physicians around me.",
-    "Off the clock I run a multi-node Kubernetes homelab under GitOps. Most of the infrastructure on my résumé was learned there.",
+    "I'm Sean, a software engineer in Houston. I've built a continuing-education platform for licensed professionals, a GPU-backed Whisper transcription service and desktop editor for a medical-transcription client, and a clinical tool that took manual data entry out of an ophthalmology research workflow. My own services run on a Kubernetes cluster I built and operate.",
+    "Day to day I work inside a Baylor College of Medicine clinic, using Epic and building small tools for the physicians around me. Before that I built a FastAPI backend and Python data pipelines for B2B clients at ConnectSys.",
   ],
   /** About panel. Says what the hero doesn't. */
   about: [
