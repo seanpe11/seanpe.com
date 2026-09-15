@@ -9,19 +9,23 @@ type DeckProps = {
   onChange: (index: number) => void;
 };
 
-const WHEEL_THRESHOLD = 12;
+const FLIP_DISTANCE = 140; // wheel pixels accumulated past a panel's edge before flipping
+const ACC_RESET_MS = 500;
 const WHEEL_LOCK_MS = 900;
 const SWIPE_PX = 60;
 
 /**
- * Three full-height panels side by side. A vertical wheel moves sideways only
- * when the current panel fits on screen; a panel that overflows scrolls
- * normally. Arrow keys, horizontal swipes and the tab bar always work.
+ * Three full-height panels side by side. A panel scrolls vertically like any
+ * page; once it is at its top or bottom edge, a deliberate further push of
+ * the wheel (FLIP_DISTANCE px within ACC_RESET_MS) moves sideways to the next
+ * panel. Arrow keys, horizontal swipes and the tab bar always work.
  */
 export const Deck = ({ panels, active, onChange }: DeckProps) => {
   const reduceMotion = useReducedMotion();
   const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
   const wheelLock = useRef(false);
+  const acc = useRef(0);
+  const accTimer = useRef<number | undefined>(undefined);
   const touchStart = useRef<{ x: number; y: number } | null>(null);
 
   const step = useCallback(
@@ -37,10 +41,23 @@ export const Deck = ({ panels, active, onChange }: DeckProps) => {
     if (!el || wheelLock.current) return;
     const horizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
     const delta = horizontal ? e.deltaX : e.deltaY;
-    if (Math.abs(delta) < WHEEL_THRESHOLD) return;
-    const fits = el.scrollHeight <= el.clientHeight + 1;
-    // Vertical wheel on a panel that scrolls stays a normal scroll.
-    if (!horizontal && !fits) return;
+    if (delta === 0) return;
+    const atTop = el.scrollTop <= 0;
+    const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
+    const canScroll = !horizontal && (delta > 0 ? !atBottom : !atTop);
+    if (canScroll) {
+      acc.current = 0;
+      return; // the panel still has room: a normal scroll
+    }
+    // At an edge: accumulate until the push is deliberate, reset on direction change.
+    if (Math.sign(acc.current) !== Math.sign(delta)) acc.current = 0;
+    acc.current += delta;
+    window.clearTimeout(accTimer.current);
+    accTimer.current = window.setTimeout(() => {
+      acc.current = 0;
+    }, ACC_RESET_MS);
+    if (Math.abs(acc.current) < FLIP_DISTANCE) return;
+    acc.current = 0;
     wheelLock.current = true;
     step(delta > 0 ? 1 : -1);
     window.setTimeout(() => {
