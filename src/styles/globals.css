@@ -62,7 +62,31 @@
   * {
     @apply border-border;
   }
+  html {
+    background-color: #040404;
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-background text-foreground;
+    background-color: #040404;
   }
+}
+
+/* Entrance animations in CSS so the static HTML is readable before hydration. */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes fade-in {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: none; }
+}
+.fade-up { animation: fade-up 0.4s ease-out both; }
+.fade-in { animation: fade-in 0.4s ease-out both; }
+.delay-1 { animation-delay: 0.08s; }
+.delay-2 { animation-delay: 0.16s; }
+.delay-3 { animation-delay: 0.24s; }
+.delay-4 { animation-delay: 0.32s; }
+@media (prefers-reduced-motion: reduce) {
+  .fade-up, .fade-in { animation: none; }
 }
