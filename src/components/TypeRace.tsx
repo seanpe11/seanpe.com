@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react'
 import { ALLOWED_KEYS } from "~/utils/constants";
-import { api } from "~/utils/api";
-import getRandomQuote from "~/utils/notion/quote"
+import { randomQuote } from "~/data/quotes";
 
 const TypeRace: React.FC = () => {
   const [typed, setTyped] = useState<Array<KeyboardEvent>>([])
   const [outString, setOutString] = useState("")
-  const { data, refetch } = api.notion.getQuote.useQuery(undefined, { enabled: false })
-  const [quote, setQuote] = useState(data)
+  const [quote, setQuote] = useState<{ quote: { text: string } } | undefined>(undefined)
   const [loc, setLoc] = useState(0)
   const [finished, setFinished] = useState(false)
   const [start, setStart] = useState<Date>(new Date())
@@ -15,11 +13,9 @@ const TypeRace: React.FC = () => {
 
   useEffect(() => {
     if (!quote) {
-      refetch().then((result) => {
-        setQuote(result.data)
-      }).catch(console.error);
+      setQuote({ quote: { text: randomQuote() } })
     }
-  }, [quote, refetch])
+  }, [quote])
 
   const onKeyPress = (event: KeyboardEvent) => {
     setTyped(prev => [...prev, event])
@@ -47,9 +43,7 @@ const TypeRace: React.FC = () => {
     setWpm(0)
     setStart(new Date())
     setLoc(0)
-    refetch().then((result) => {
-      setQuote(result.data)
-    }).catch(console.error);
+    setQuote({ quote: { text: randomQuote(quote?.quote.text) } })
   }
 
   useEffect(() => {

@@ -13,17 +13,11 @@ const config = {
     ignoreDuringBuilds: true,
   },
 
-  // Emits .next/standalone, which the Dockerfile runner stage copies.
-  output: "standalone",
-
-  async redirects() {
-    return [
-      {
-        source: "/tattoo",
-        destination: "/",
-        permanent: true,
-      },
-    ];
+  // Static HTML export for Cloudflare Pages. `pnpm build` emits ./out.
+  // Redirects live in public/_redirects (Pages reads that file).
+  output: "export",
+  images: {
+    unoptimized: true,
   },
 };
 
