@@ -1,8 +1,13 @@
 import { PROJECTS, type Project } from "~/data/projects";
+import { dashboardBySlug } from "~/data/dashboards";
+import { LazyIframe } from "~/components/LazyIframe";
 import { Section, cardClass } from "./Section";
 
-const ProjectCard = ({ project, index }: { project: Project; index: number }) => (
-  <article className={`fade-up delay-${Math.min(index + 1, 4)} ${cardClass}`}>
+const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
+  const embed = project.embed ? dashboardBySlug(project.embed) : undefined;
+  if (project.embed && !embed) throw new Error(`projects.ts: no dashboard "${project.embed}" in dashboards.ts`);
+  return (
+  <article className={`fade-up delay-${Math.min(index + 1, 4)} ${cardClass} ${embed ? "md:col-span-2" : ""}`}>
     {project.image && (
       // eslint-disable-next-line @next/next/no-img-element
       <img
@@ -23,6 +28,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
     <h3 className="mt-1 text-lg font-semibold text-white">{project.title}</h3>
     <p className="text-sm text-zinc-300">{project.tagline}</p>
     <p className="mt-3 text-sm leading-relaxed text-zinc-400">{project.body}</p>
+    {embed && <LazyIframe src={embed.src} title={embed.title} height={embed.height} className="mt-4" />}
     <ul className="mt-3 flex flex-wrap gap-1.5">
       {project.stack.map((s) => (
         <li
@@ -49,7 +55,8 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
       </div>
     )}
   </article>
-);
+  );
+};
 
 export const Projects = () => (
   <Section title="Projects" blurb="What each one is, why it exists, and how it was built.">

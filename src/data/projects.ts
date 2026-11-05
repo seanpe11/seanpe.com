@@ -5,6 +5,9 @@
  *
  * `image` is a screenshot under public/images/projects/ (16:9 works best).
  * `status` is a short honest state shown next to the kicker.
+ * `embed` is the slug of a dashboard in src/data/dashboards.ts, rendered as a
+ * lazily mounted iframe under the body; a card with one spans both columns,
+ * because Grafana falls back to a stacked mobile layout below ~790 px.
  */
 export type Project = {
   slug: string;
@@ -16,6 +19,7 @@ export type Project = {
   stack: string[];
   links: { label: string; href: string }[];
   image?: { src: string; alt: string };
+  embed?: string;
 };
 
 export const PROJECTS: Project[] = [
@@ -67,12 +71,16 @@ export const PROJECTS: Project[] = [
     slug: "homelab",
     title: "Kubernetes Homelab",
     kicker: "infrastructure",
-    status: "running",
-    tagline: "A multi-node k3s cluster run the way production is run",
+    status: "running · public dashboard",
+    tagline: "One OptiPlex, two k3s clusters, run the way production is run",
     body:
-      "A multi-node Kubernetes cluster that hosts my own services: this website's API, a PostgreSQL database, a media server, and local LLMs. Everything is declared in Git and reconciled by Flux CD, with Kustomize overlays per environment, CloudNativePG for the database, and SOPS-encrypted secrets in the repo. Remote access goes through Cloudflare Tunnels and Tailscale, so nothing is exposed directly. A second generation is being rebuilt declaratively with Ansible for the hosts and separate family and personal clusters. It exists so that I learn infrastructure by operating it, not by reading about it.",
-    stack: ["kubernetes (k3s)", "flux cd", "kustomize", "cloudnativepg", "sops", "ansible", "cloudflare tunnel", "tailscale"],
-    links: [{ label: "GitHub", href: "https://github.com/seanpe11/seanpe-homelab" }],
+      "A Dell OptiPlex runs two k3s clusters: a family one on the host for the household's services, and a personal one in an Incus VM that I can break and rebuild from Git. Flux reconciles the personal cluster from a public repo, with SOPS-encrypted secrets and self-hosted Supabase on Postgres 17, which replaced CloudNativePG. Traffic arrives through a Cloudflare Tunnel, with Cloudflare Access in front of the private hosts and an explicit path allowlist on the public ones. Grafana queries Postgres through a read-only role, and its dashboards are shared publicly on this site.",
+    stack: ["kubernetes (k3s)", "flux cd", "incus", "supabase (postgres 17)", "sops", "ansible", "cloudflare tunnel + access", "grafana"],
+    links: [
+      { label: "GitHub", href: "https://github.com/seanpe11/seanpe-homelab" },
+      { label: "Live dashboards", href: "/dashboards" },
+    ],
+    // embed: "homelab-widget", // slug in src/data/dashboards.ts, once the widget is shared
   },
   {
     slug: "lap-replay",
