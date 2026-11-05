@@ -38,7 +38,7 @@ export const PROJECTS: Project[] = [
     slug: "f1lag",
     title: "f1lag",
     kicker: "data pipeline · measurement",
-    status: "public soon",
+    status: "private · write-up",
     tagline: "How fast do prediction markets reprice after an F1 safety car, and is any of it fillable?",
     body:
       "F1's live timing feed is the reference clock; Kalshi and Polymarket are the markets. The pipeline parses F1's SignalR stream archive, fits a UTC anchor per session and asserts its error (median 0.131 s across 28 safety-car, VSC and red-flag events), times each event from its first machine-readable tell rather than the headline, and lines that up against microsecond-stamped venue trades. A systemd-supervised capture records the live order book at race weekends so that “fillable” is measured, not assumed. Six executed notebooks walk the research honestly, including one that kills its own strategy when the live spread turned out to be double the assumption. 27 async tests, no credentials needed. It does not trade.",

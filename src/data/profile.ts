@@ -19,7 +19,7 @@ export const PROFILE = {
   /** About panel. Says what the hero doesn't. */
   about: [
     "I got into software through problem-solving, not through loyalty to a stack. The pattern repeats: find the friction, build the fix, hand it to the people doing the work. At ConnectSys that was an API server and data pipelines. At Baylor it's spreadsheets and clinic workflows that shouldn't need a human to retype them.",
-    "The homelab is where I learn infrastructure properly. A multi-node k3s cluster, Flux CD reconciling from Git, CloudNativePG, SOPS-encrypted secrets, and Cloudflare Tunnels plus Tailscale for access. When it breaks late at night it's mine to fix, which is the point.",
+    "The homelab is where I learn infrastructure properly. Two k3s clusters, Flux CD reconciling from Git, SOPS-encrypted secrets, and Cloudflare Tunnels plus Tailscale for access. When it breaks late at night it's mine to fix, which is the point.",
   ],
   /** Short facts for the About panel's side card. */
   facts: [
@@ -28,5 +28,5 @@ export const PROFILE = {
     { label: "Looking for", value: "Clinical systems / analyst or full-stack work inside a health system" },
     { label: "Based in", value: "Houston, TX" },
   ],
-  quoteCaption: "A quote from somewhere, sometime in my life",
+  quoteCaption: "From my notes",
 } as const;
