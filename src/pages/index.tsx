@@ -92,12 +92,16 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="relative isolate flex h-[100dvh] flex-col overflow-hidden bg-gradient-to-b from-[#1c1c1c] to-[#040404]">
-        {/* Lap replay behind everything, like thavlik.dev's EEG backdrop; the bar below brings it to the front */}
+        {/* Backdrop: a stack of full-bleed layers behind everything (thavlik.dev-style). Each layer is
+            absolutely positioned so another canvas, or an alternate background, can sit beside the lap
+            replay. The bar below brings the lap to the front. */}
         <div
           className={`absolute inset-x-0 bottom-7 top-0 transition-opacity duration-300 ${focus ? "z-10" : "-z-10"}`}
           aria-hidden={!focus}
         >
-          <TrackMap variant={focus ? "focus" : "background"} className="h-full w-full" />
+          <div className="absolute inset-0">
+            <TrackMap variant={focus ? "focus" : "background"} className="h-full w-full" />
+          </div>
         </div>
 
         {/* One soft accent blob */}

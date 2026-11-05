@@ -22,6 +22,16 @@ export const About = () => (
                 <dd className="mt-0.5 text-zinc-200">{f.value}</dd>
               </div>
             ))}
+            {PROFILE.notesLive && (
+              <div>
+                <dt className="text-xs uppercase tracking-[0.15em] text-zinc-500">Notes</dt>
+                <dd className="mt-0.5">
+                  <a href={PROFILE.notes} className="text-[#33ccff] transition-colors hover:text-white">
+                    {PROFILE.notes.replace(/^https:\/\//, "")}
+                  </a>
+                </dd>
+              </div>
+            )}
           </dl>
         </article>
       </div>

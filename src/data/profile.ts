@@ -11,6 +11,9 @@ export const PROFILE = {
   github: "https://github.com/seanpe11",
   linkedin: "https://www.linkedin.com/in/sean-pe-84b1401a4/",
   resume: "/resume.pdf",
+  /** Public vault (Quartz). Links stay hidden until notesLive is true. */
+  notes: "https://notes.seanpe.io",
+  notesLive: false,
   /** Hero. Two short paragraphs, then the buttons. Leads with what's been built. */
   intro: [
     "I'm Sean, a software engineer in Houston. I've built a continuing-education platform for licensed professionals, a GPU-backed Whisper transcription service and desktop editor for a medical-transcription client, and a clinical tool that took manual data entry out of an ophthalmology research workflow. My own services run on a Kubernetes cluster I built and operate.",

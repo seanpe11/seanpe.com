@@ -91,6 +91,11 @@ export const Hero = ({ onShowWork }: HeroProps) => {
             >
               See the work →
             </button>
+            {PROFILE.notesLive && (
+              <a href={PROFILE.notes} className="text-sm text-zinc-400 transition-colors hover:text-white">
+                Notes →
+              </a>
+            )}
           </div>
         </div>
       </div>
