@@ -25,7 +25,7 @@ export const DASHBOARDS: Dashboard[] = [
   {
     slug: "pipeline-health",
     title: "Pipeline health",
-    blurb: "Liveness of the prediction-market collectors and the homelab hosts, from once-a-minute heartbeats written to Postgres.",
+    blurb: "I'm interested in how data engineering and data pipelines work, so as such I built some simple collectors to feed into my other interest of searching for market opportunities in prediction markets.",
     src: "https://dashboards.seanpe.io/public-dashboards/8a12aa99128a4082aead4d9f19667503",
     height: 1250,
   },
