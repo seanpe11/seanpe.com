@@ -9,6 +9,7 @@ import { Hero } from "~/components/lander/Hero";
 import { About } from "~/components/lander/About";
 import { Experience } from "~/components/lander/Experience";
 import { Projects } from "~/components/lander/Projects";
+import { Papers } from "~/components/lander/Papers";
 import { QuoteBlock } from "~/components/lander/QuoteBlock";
 import { TrackMap } from "~/components/lander/TrackMap";
 import { LapBar } from "~/components/lander/LapBar";
@@ -75,6 +76,7 @@ const Home: NextPage = () => {
       content: (
         <>
           <Projects />
+          <Papers />
           <Experience />
         </>
       ),
