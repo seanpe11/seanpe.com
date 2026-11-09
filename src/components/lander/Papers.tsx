@@ -20,7 +20,7 @@ const PaperCard = ({ paper }: { paper: Paper }) => (
     <p className="mt-3 text-sm leading-relaxed text-zinc-400">{paper.summary}</p>
     {paper.contribution && (
       <p className="mt-2 text-sm text-zinc-300">
-        <span className="text-zinc-500">My part: </span>
+        <span className="text-zinc-500">Role: </span>
         {paper.contribution}
       </p>
     )}
@@ -36,7 +36,12 @@ const PaperCard = ({ paper }: { paper: Paper }) => (
     </ul>
     {SHOW_PAPER_PDFS && paper.pdf && (
       <div className="mt-3 text-sm">
-        <a href={paper.pdf} className="text-[#33ccff] transition-colors hover:text-white">
+        <a
+          href={paper.pdf}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#33ccff] transition-colors hover:text-white"
+        >
           PDF →
         </a>
       </div>
