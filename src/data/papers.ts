@@ -62,7 +62,7 @@ export const PAPERS: Paper[] = [
     context: "Undergraduate thesis paper, De La Salle University.",
     summary:
       "A web app for people who know their symptoms but not which kind of doctor to see: it asks for symptoms and preferences in a doctor and consultation, then recommends a doctor who fits. Built through a needfinding study and usability tests with 22 participants, it was reviewed by six doctors, who flagged its reliance on the ApiMedic diagnosis API and its fit to the Philippines, and the 27 users in acceptance testing rated it useful and easy to use.",
-    tools: ["react", "node.js", "express", "firebase", "figma", "apimedic api"],
+    tools: ["vue.js", "express.js", "figma", "apimedic api"],
     contribution: "Author",
   },
 ];
